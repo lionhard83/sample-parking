@@ -3,7 +3,7 @@ public class Main2 {
 
         Parking p = new Parking("Lumbi", 10);
         Car c = new Car("fiat", "tipo");
-        p.addCar(c, 2);
+        p.addCar(c);
 
         Car c2 = new Car("citroen", "c2");
         p.addCar(c2);

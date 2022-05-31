@@ -1,49 +1,42 @@
+import java.util.ArrayList;
+
 public class Parking {
     private String name;
-    private Car[] places; // null, Car, null, Car
+    private int limitPlaces;
+    // private Car[] places; // null, Car, null, Car
+    private ArrayList<Car> places = new ArrayList<Car>();
 
-    public Parking(String name, int nOfPlaces) {
+    public Parking(String name, int limit) {
         this.name = name;
-        this.places = new Car[nOfPlaces]; // new Car[10]
+        this.limitPlaces = limit;
     }
 
-    public void addCar(Car car, int index) {
-        if (index >= 0 && index < this.places.length && places[index] == null) {
-            places[index] = car;
-        }
-    }
+    // public void addCar(Car car, int index) {
+    // if (index >= 0 && index < this.places.length && places[index] == null) {
+    // places[index] = car;
+    // }
+    // }
 
     public void addCar(Car car) {
-        for (int i = 0; i < this.places.length; i++) {
-            if (places[i] == null) {
-                places[i] = car;
-                return;
-            }
+        if (this.places.size() < limitPlaces) {
+            places.add(car);
         }
     }
 
     public void removeCarAt(int index) {
-        if (index >= 0 && index < this.places.length) {
-            this.places[index] = null;
+        // if (index >= 0 && index < this.places.length) {
+        if (index >= 0 && index < this.places.size()) {
+            // this.places[index] = null;
+            this.places.remove(index);
         }
     }
 
     public boolean isFull() {
-        for (int i = 0; i < this.places.length; i++) {
-            if (this.places[i] == null) {
-                return false;
-            }
-        }
-        return true;
+        return this.places.size() == this.limitPlaces;
     }
 
     public boolean isTotallyEmpty() {
-        for (int i = 0; i < this.places.length; i++) {
-            if (this.places[i] != null) {
-                return false;
-            }
-        }
-        return true;
+        return this.places.isEmpty();
     }
 
     // [car, null, car, null, null]
@@ -51,12 +44,8 @@ public class Parking {
 
     public String toString() {
         String response = this.name + " [";
-        for (int i = 0; i < this.places.length; i++) {
-            if (this.places[i] == null) {
-                response += "_,";
-            } else {
-                response += "@,";
-            }
+        for (Car cIesime : this.places) {
+            response += cIesime.toString();
         }
         response += "]";
         return response;
